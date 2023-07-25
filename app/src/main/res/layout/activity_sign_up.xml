@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
-    tools:context=".MainActivity">
-
+    tools:context=".SignUpActivity"
+    android:background="@drawable/fondo">
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="400dp"
@@ -27,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:fontFamily="@font/kanit_medium"
-                android:text="Ingreso de usuario"
+                android:text="Crear usuario"
                 android:textColor="@color/titulo"
                 android:textSize="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,19 +72,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/etPassword">
 
                 <Button
-                    android:id="@+id/btnRegistrarse"
+                    android:id="@+id/btnCancelar"
                     android:layout_width="140dp"
                     android:backgroundTint="#073693"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="50dp"
-                    android:text="REGISTRARSE" />
+                    android:text="Cancelar" />
 
                 <Button
-                    android:id="@+id/btnIngresar"
+                    android:id="@+id/btnCrear"
                     android:layout_width="140dp"
                     android:backgroundTint="#073693"
                     android:layout_height="wrap_content"
-                    android:text="INGRESAR" />
+                    android:text="Crear" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -103,6 +102,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

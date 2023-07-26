@@ -37,4 +37,33 @@ class DBmanager(context : Context) {
         return result != -1L
     }
 
+    fun getUser(email : String) : User{
+        var user : User = User("","")
+
+        val cursor = _baseDatos?.rawQuery("select * from $USER_TABLE_NAME where email='$email'", null)
+
+        if(cursor != null){
+            if(cursor.moveToFirst()){
+                do{
+                    user.email = cursor.getString(0)
+                    user.password = cursor.getString(1)
+                }while (cursor.moveToNext())
+            }
+        }
+        cursor?.close()
+        return user
+    }
+
+    fun deleteUser(email: String){
+        _baseDatos?.delete(USER_TABLE_NAME, "email='$email'", null)
+    }
+
+    fun checkCredenciales(email: String, password : String) : Boolean{
+        val cursor = _baseDatos?.rawQuery("select * from $USER_TABLE_NAME where email='$email' AND password='$password'", null)
+
+        val matchFound = cursor?.count!! > 0
+        cursor.close()
+        return matchFound
+    }
+
 }

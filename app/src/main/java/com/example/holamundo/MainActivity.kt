@@ -3,12 +3,16 @@ package com.example.holamundo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Email
+import android.widget.Toast
 import com.example.holamundo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private var email : Boolean = false
     private var password : Boolean = false
+
+    private lateinit var dbManager : DBmanager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +52,23 @@ class MainActivity : AppCompatActivity() {
         binding.btnIngresar.setOnClickListener {
 
             if(email && password){
-                redirectMenu()
+                checkCredentials(binding.etEmail.toString(), binding.etPassword.toString())
             }
+        }
+    }
+
+
+    fun checkCredentials(email: String, password : String){
+        dbManager = DBmanager(this)
+        dbManager.open()
+        val userExists = dbManager.checkCredenciales(email, password)
+        println("user exists = $userExists")
+        dbManager.close()
+
+        if(userExists){
+            redirectMenu()
+        }else{
+            Toast.makeText(applicationContext, "Usuario incorrecto", Toast.LENGTH_SHORT).show()
         }
     }
 

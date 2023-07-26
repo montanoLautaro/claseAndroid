@@ -1,5 +1,6 @@
 package com.example.holamundo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +29,11 @@ class SignUpActivity : AppCompatActivity() {
             dbManager.close()
 
             Log.d("NUEVO USUARIO", "USUARIO: ${binding.etEmail.text.toString()}, CONTRASEÑA: ${binding.etPassword.text.toString()}")
+        }
+
+        binding.btnCancelar.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 

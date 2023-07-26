@@ -20,15 +20,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
-
-
         validateEmailFocus()
         validatePasswordFocus()
         initListeners()
-
-
 
     }
 
@@ -50,9 +44,10 @@ class MainActivity : AppCompatActivity() {
 
     fun logIn(){
         binding.btnIngresar.setOnClickListener {
-
+            binding.etPassword.clearFocus()
+            binding.etEmail.clearFocus()
             if(email && password){
-                checkCredentials(binding.etEmail.toString(), binding.etPassword.toString())
+                checkCredentials(binding.etEmail.text.toString(), binding.etPassword.text.toString())
             }
         }
     }
@@ -62,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         dbManager = DBmanager(this)
         dbManager.open()
         val userExists = dbManager.checkCredenciales(email, password)
-        println("user exists = $userExists")
         dbManager.close()
 
         if(userExists){

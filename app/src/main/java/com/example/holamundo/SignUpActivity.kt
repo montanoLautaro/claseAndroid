@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.holamundo.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
@@ -21,20 +22,31 @@ class SignUpActivity : AppCompatActivity() {
 
 
         binding.btnCrear.setOnClickListener {
-            val user = User(binding.etEmail.text.toString(), binding.etPassword.text.toString())
-
-            dbManager = DBmanager(this)
-            dbManager.open()
-            dbManager.crearUsuario(user)
-            dbManager.close()
-
-            Log.d("NUEVO USUARIO", "USUARIO: ${binding.etEmail.text.toString()}, CONTRASEÑA: ${binding.etPassword.text.toString()}")
+            crearUsuario()
         }
 
         binding.btnCancelar.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    fun crearUsuario(){
+        dbManager = DBmanager(this)
+        dbManager.open()
+
+        val existe = dbManager.checkCredenciales(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+
+        if(!existe){
+            val user = User(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+            dbManager.crearUsuario(user)
+            Toast.makeText(applicationContext, "usuario creado", Toast.LENGTH_SHORT).show()
+            Log.d("NUEVO USUARIO", "USUARIO: ${binding.etEmail.text.toString()}, CONTRASEÑA: ${binding.etPassword.text.toString()}")
+        }else{
+            Toast.makeText(applicationContext, "error", Toast.LENGTH_SHORT).show()
+        }
+
+        dbManager.close()
     }
 
 

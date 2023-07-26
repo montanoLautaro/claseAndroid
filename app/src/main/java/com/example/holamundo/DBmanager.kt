@@ -3,6 +3,7 @@ package com.example.holamundo
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 
 class DBmanager(context : Context) {
 
@@ -34,7 +35,14 @@ class DBmanager(context : Context) {
         contentValues.put(USER_COLUMN_EMAIL, user.email)
         contentValues.put(USER_COLUMN_PASSWORD, user.password)
         val result = _baseDatos?.insert(USER_TABLE_NAME, null, contentValues)
-        return result != -1L
+        println("CREAR USUARIO: $result")
+        return if(result==-1L){
+            Log.d("insercion", "incorrecta")
+            false
+        }else{
+            Log.d("insercion", "correcta")
+            true
+        }
     }
 
     fun getUser(email : String) : User{
@@ -62,8 +70,11 @@ class DBmanager(context : Context) {
         val cursor = _baseDatos?.rawQuery("select * from $USER_TABLE_NAME where email='$email' AND password='$password'", null)
 
         val matchFound = cursor?.count!! > 0
+        println("CONTADOR: $matchFound y ${cursor.count}")
         cursor.close()
         return matchFound
     }
+
+
 
 }

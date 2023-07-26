@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Email
 import android.widget.Toast
 import com.example.holamundo.databinding.ActivityMainBinding
+import com.example.holamundo.superhero.SuperHeroActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -67,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun redirectMenu() {
-        val intent = Intent(this, MenuActivity::class.java)
+        val intent = Intent(this, SuperHeroActivity::class.java)
         startActivity(intent)
     }
 
